@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Product Page
+{% endblock %}
+
+{% block content %}
+ <br>
+    <div id="productsTable">
+        <table id="data" class="table table-hover table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Product_Type</th>
+                    <th scope="col">Price_Per</th>
+                    <th scope="col">Units_Sold</th>
+                    <th scope="col">Quarter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.type_ }}</td>
+                <td>{{ item.price }}$</td>
+                <td>{{ item.units }}</td>
+                <td>{{ item.qtr }}</td>
+            </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-outline btn-primary" onclick="fetchTable('/qtr1')">1st Quarter</button>
+    <button class="btn btn-outline btn-success" onclick="fetchTable('/qtr2')">2nd Quarter</button>
+    <button class="btn btn-outline btn-info" onclick="fetchTable('/qtr3')">3rd Quarter</button>
+    <button class="btn btn-outline btn-warning" onclick="fetchTable('/qtr4')">4th Quarter</button>
+{% endblock %}
+
+{% block script %}
+  <script>
+    $(document).ready(function () {
+      $('#data').DataTable();
+    });
+  </script>
+
+ <script>
+    function fetchTable(endpoint) {
+      $('#data').DataTable({
+        ajax: endpoint,
+        
+        destroy: true,
+        columns: [
+          {data: 'ID'},
+          {data: 'Product'},
+          {data: 'Product_Type'},
+          {data: 'Price_Per', orderable: false, searchable: false},
+          {data: 'Units_Sold', orderable: false, searchable: false},
+          {data: 'Quarter', orderable: false, searchable: false}
+        ],
+      });
+    };
+
+ </script>
+{% endblock script %}
