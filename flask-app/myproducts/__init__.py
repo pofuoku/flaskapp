@@ -6,3 +6,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'
 db = SQLAlchemy(app)
 
 from myproducts import routes
+
+def getApp():
+    return app
